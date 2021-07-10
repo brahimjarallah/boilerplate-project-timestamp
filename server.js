@@ -18,7 +18,7 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html")
 })
 
-app.get("/api/timestamp", (req, res) => {
+app.get("/api/", (req, res) => {
   let date = new Date()
   return res.json({
     unix: date.getTime(),
@@ -26,7 +26,7 @@ app.get("/api/timestamp", (req, res) => {
   })
 })
 // your first API endpoint...
-app.get("/api/timestamp/:date_str", function (req, res) {
+app.get("/api/:date_str", function (req, res) {
   const { date_str } = req.params
   let date = new Date(date_str)
 
@@ -38,12 +38,11 @@ app.get("/api/timestamp/:date_str", function (req, res) {
     return res.json({
       error: "invalid Date",
     })
-  } 
-    return res.json({
-      unix: date.getTime(),
-      utc: date.toUTCString(),
-    })
-  
+  }
+  return res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString(),
+  })
 })
 
 var listener = app.listen(process.env.PORT || 3000, function () {
